@@ -1,0 +1,29 @@
+{
+  "name": "book-inventory",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "author": {
+    "name": "Mario Brino",
+    "email": "mariobrino@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "node --env-file .env --watch src/server.js",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.8",
+    "prettier-plugin-organize-imports": "^4.3.0"
+  }
+}
