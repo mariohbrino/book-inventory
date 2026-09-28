@@ -1,9 +1,10 @@
 import express from "express";
 
-import { index } from "../controllers/loans.js";
+import { index, show } from "../controllers/loans.js";
 
 const router = express.Router();
 
 router.get("/", index);
+router.get("/:id", show);
 
 export { router as loansRouter };

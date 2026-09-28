@@ -11,3 +11,12 @@ export const getAllLoans = async () => {
     console.log("Error fetching loans: ", error);
   }
 };
+
+export const getLoanById = async (id) => {
+  try {
+    const loan = await LoanModel.findById(id);
+    return loan;
+  } catch (error) {
+    console.log("Error fetching loan by ID: ", error);
+  }
+};
