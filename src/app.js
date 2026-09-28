@@ -16,6 +16,7 @@ app.use(responseMiddleware);
 // Mount all routes
 app.use("/", router);
 
+// Handle 404 and other errors
 app.use(handleNotFoundMiddleware);
 app.use(errorHandlerMiddleware);
 

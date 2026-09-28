@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 import {
   createLoan,
   deleteLoan,
@@ -5,6 +7,16 @@ import {
   getLoanById,
   updateLoan,
 } from "../models/loans.js";
+
+export const loanSchema = z.object({
+  body: z.object({
+    bookId: z.coerce.string(),
+    userId: z.coerce.string(),
+    borrowedAt: z.coerce.date(),
+    dueAt: z.coerce.date(),
+    returnedAt: z.coerce.date().optional(),
+  }),
+});
 
 export const index = async (request, response) => {
   void request;
