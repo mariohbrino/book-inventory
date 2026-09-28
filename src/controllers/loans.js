@@ -1,4 +1,9 @@
-import { createLoan, getAllLoans, getLoanById } from "../models/loans.js";
+import {
+  createLoan,
+  getAllLoans,
+  getLoanById,
+  updateLoan,
+} from "../models/loans.js";
 
 export const index = async (request, response) => {
   void request;
@@ -23,5 +28,20 @@ export const store = async (request, response) => {
   } catch (error) {
     console.log("Error creating loan: ", error);
     return response.status(500).json({ error: "Error creating loan" });
+  }
+};
+
+export const update = async (request, response) => {
+  const { id } = request.params;
+  const loanData = request.body;
+  try {
+    const updatedLoan = await updateLoan(id, loanData);
+    if (!updatedLoan) {
+      return response.status(404).json({ error: "Loan not found" });
+    }
+    return response.json(updatedLoan);
+  } catch (error) {
+    console.log("Error updating loan: ", error);
+    return response.status(500).json({ error: "Error updating loan" });
   }
 };

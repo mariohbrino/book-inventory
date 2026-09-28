@@ -29,3 +29,14 @@ export const createLoan = async (data) => {
     console.log("Error creating loan: ", error);
   }
 };
+
+export const updateLoan = async (id, data) => {
+  try {
+    const updatedLoan = await LoanModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    return updatedLoan;
+  } catch (error) {
+    console.log("Error updating loan: ", error);
+  }
+};
