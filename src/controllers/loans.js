@@ -25,6 +25,7 @@ export const store = async (request, response) => {
   const loanData = request.body;
   try {
     const newLoan = await createLoan(loanData);
+    console.log("Loan created successfully: ", newLoan);
     return response.status(201).json(newLoan);
   } catch (error) {
     console.log("Error creating loan: ", error);
@@ -40,6 +41,7 @@ export const update = async (request, response) => {
     if (!updatedLoan) {
       return response.status(404).json({ error: "Loan not found" });
     }
+    console.log("Loan updated successfully: ", updatedLoan);
     return response.json(updatedLoan);
   } catch (error) {
     console.log("Error updating loan: ", error);
@@ -54,6 +56,7 @@ export const destroy = async (request, response) => {
     if (!deletedLoan) {
       return response.status(404).json({ error: "Loan not found" });
     }
+    console.log("Loan deleted successfully: ", deletedLoan);
     return response.json(deletedLoan);
   } catch (error) {
     console.log("Error deleting loan: ", error);
