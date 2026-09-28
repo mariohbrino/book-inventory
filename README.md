@@ -10,6 +10,9 @@ cp .env.example .env
 npm install
 ```
 
+Set `JWT_SECRET` in `.env` to a long random value. Requests to `/books` must
+include a Bearer JWT with an `admin` or `librarian` role.
+
 ## Development
 
 Make sure you have set up your `.env` file before running the development
