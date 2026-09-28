@@ -4,11 +4,11 @@ import { db } from "./services/database.js";
 const NODE_ENV = process.env["NODE_ENV"]?.toLowerCase() || "production";
 const PORT = process.env["PORT"] || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   try {
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log(`Environment: ${NODE_ENV}`);
-    db();
+    await db();
   } catch (error) {
     console.error("Error connecting to the database:", error);
   }
