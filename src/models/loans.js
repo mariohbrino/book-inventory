@@ -40,3 +40,12 @@ export const updateLoan = async (id, data) => {
     console.log("Error updating loan: ", error);
   }
 };
+
+export const deleteLoan = async (id) => {
+  try {
+    const deletedLoan = await LoanModel.findByIdAndDelete(id);
+    return deletedLoan;
+  } catch (error) {
+    console.log("Error deleting loan: ", error);
+  }
+};

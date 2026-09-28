@@ -1,5 +1,6 @@
 import {
   createLoan,
+  deleteLoan,
   getAllLoans,
   getLoanById,
   updateLoan,
@@ -43,5 +44,19 @@ export const update = async (request, response) => {
   } catch (error) {
     console.log("Error updating loan: ", error);
     return response.status(500).json({ error: "Error updating loan" });
+  }
+};
+
+export const destroy = async (request, response) => {
+  const { id } = request.params;
+  try {
+    const deletedLoan = await deleteLoan(id);
+    if (!deletedLoan) {
+      return response.status(404).json({ error: "Loan not found" });
+    }
+    return response.json(deletedLoan);
+  } catch (error) {
+    console.log("Error deleting loan: ", error);
+    return response.status(500).json({ error: "Error deleting loan" });
   }
 };
