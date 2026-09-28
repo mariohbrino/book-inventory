@@ -20,3 +20,12 @@ export const getLoanById = async (id) => {
     console.log("Error fetching loan by ID: ", error);
   }
 };
+
+export const createLoan = async (data) => {
+  try {
+    const newLoan = await LoanModel.create(data);
+    return newLoan;
+  } catch (error) {
+    console.log("Error creating loan: ", error);
+  }
+};
