@@ -4,14 +4,14 @@ export const LoanSchema = new Schema({
   bookId: {
     type: Schema.Types.ObjectId,
     ref: "author",
-    require: true,
+    required: true,
   },
   userId: {
     type: Schema.Types.ObjectId,
     ref: "user",
-    require: true,
+    required: true,
   },
-  borrowedAt: Date,
-  dueAt: Date,
+  borrowedAt: { type: Date, required: true },
+  dueAt: { type: Date, required: true },
   returnedAt: Date,
 });
