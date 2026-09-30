@@ -22,23 +22,13 @@ export const getLoanById = async (id) => {
 };
 
 export const createLoan = async (data) => {
-  try {
-    const newLoan = await LoanModel.create(data);
-    return newLoan;
-  } catch (error) {
-    console.log("Error creating loan: ", error);
-  }
+  return LoanModel.create(data);
 };
 
 export const updateLoan = async (id, data) => {
-  try {
-    const updatedLoan = await LoanModel.findByIdAndUpdate(id, data, {
-      returnDocument: "after",
-    });
-    return updatedLoan;
-  } catch (error) {
-    console.log("Error updating loan: ", error);
-  }
+  return LoanModel.findByIdAndUpdate(id, data, {
+    returnDocument: "after",
+  });
 };
 
 export const deleteLoan = async (id) => {

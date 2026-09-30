@@ -8,7 +8,7 @@ import {
   updateLoan,
 } from "../models/loans.js";
 
-const objectIdSchema = z.string().regex(/^[a-f\d]{24}$/i, "Invalid ObjectId");
+const objectIdSchema = z.string().regex(/^[0-9a-f]{24}$/i, "Invalid ObjectId");
 
 const loanBodySchema = z
   .object({
@@ -75,6 +75,43 @@ export const store = async (request, response) => {
   /**
    * #swagger.tags = ['Loans']
    * #swagger.summary = 'Create a new loan'
+   * #swagger.requestBody = {
+      description: 'Post creation payload',
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['title', 'authorId', 'isbn'],
+            properties: {
+              bookId: {
+                type: 'string',
+                example: '507f1f77bcf86cd799439011'
+              },
+              userId: {
+                type: 'string',
+                example: '507f191e810c19729de860ea'
+              },
+              borrowedAt: {
+                type: 'string',
+                format: 'date-time',
+                example: '2024-06-01T10:00:00Z'
+              },
+              dueAt: {
+                type: 'string',
+                format: 'date-time',
+                example: '2024-06-15T10:00:00Z'
+              },
+              returnedAt: {
+                type: 'string',
+                format: 'date-time',
+                example: '2024-06-10T10:00:00Z'
+              },
+            }
+          }
+        }
+      }
+    }
    */
   const loanData = request.body;
   try {
@@ -91,6 +128,43 @@ export const update = async (request, response) => {
   /**
    * #swagger.tags = ['Loans']
    * #swagger.summary = 'Update a loan by ID'
+   * #swagger.requestBody = {
+      description: 'Post creation payload',
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['title', 'authorId', 'isbn'],
+            properties: {
+              bookId: {
+                type: 'string',
+                example: '507f1f77bcf86cd799439011'
+              },
+              userId: {
+                type: 'string',
+                example: '507f191e810c19729de860ea'
+              },
+              borrowedAt: {
+                type: 'string',
+                format: 'date-time',
+                example: '2024-06-01T10:00:00Z'
+              },
+              dueAt: {
+                type: 'string',
+                format: 'date-time',
+                example: '2024-06-15T10:00:00Z'
+              },
+              returnedAt: {
+                type: 'string',
+                format: 'date-time',
+                example: '2024-06-10T10:00:00Z'
+              },
+            }
+          }
+        }
+      }
+    }
    */
   const { id } = request.params;
   const loanData = request.body;

@@ -24,6 +24,40 @@ export const createUser = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Create a new user'
+   * #swagger.requestBody = {
+      description: 'User creation payload',
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['username', 'email', 'password', 'role'],
+            properties: {
+              username: {
+                type: 'string',
+                example: 'johndoe'
+              },
+              email: {
+                type: 'string',
+                example: 'johndoe@example.com'
+              },
+              password: {
+                type: 'string',
+                example: 'password123'
+              },
+              age: {
+                type: 'integer',
+                example: 30
+              },
+              role: {
+                type: 'string',
+                example: 'user'
+              }
+            }
+          }
+        }
+      }
+    }
    */
   try {
     const newUser = await createUserRecord(request.body);
@@ -51,6 +85,40 @@ export const updateUser = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Update an existing user by ID'
+   * #swagger.requestBody = {
+      description: 'User update payload',
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['username', 'email', 'password', 'role'],
+            properties: {
+              username: {
+                type: 'string',
+                example: 'johndoe'
+              },
+              email: {
+                type: 'string',
+                example: 'johndoe@example.com'
+              },
+              password: {
+                type: 'string',
+                example: 'password123'
+              },
+              age: {
+                type: 'integer',
+                example: 30
+              },
+              role: {
+                type: 'string',
+                example: 'user'
+              }
+            }
+          }
+        }
+      }
+    }
    */
   const { id } = request.params;
   try {

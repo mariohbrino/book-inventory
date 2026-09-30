@@ -27,5 +27,9 @@ jobs:
           cache: "npm"
       - name: Install node dependencies
         run: npm ci
+      - name: Copy .env
+        run: cp .env.example .env
+      - name: Create openapi documentation
+        run: npm run openapi
       - name: Run all tests
         run: npm run test

@@ -8,10 +8,12 @@ import {
   updateBook,
 } from "../models/books.js";
 
+const objectIdSchema = z.string().regex(/^[0-9a-f]{24}$/i, "Invalid ObjectId");
+
 export const bookSchema = z.object({
   body: z.object({
     title: z.string().min(1),
-    authorId: z.coerce.string(),
+    authorId: objectIdSchema,
     isbn: z.string().min(10),
     publisher: z.string().optional(),
     publishedYear: z.coerce.number().int().optional(),
@@ -48,6 +50,52 @@ export const store = async (request, response) => {
   /**
    * #swagger.tags = ['Books']
    * #swagger.description = 'Create a new book'
+   * #swagger.requestBody = {
+      description: 'Book creation payload',
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['title', 'authorId', 'isbn'],
+            properties: {
+              title: {
+                type: 'string',
+                example: 'The Great Gatsby'
+              },
+              authorId: {
+                type: 'string',
+                example: '1234567890abcdef12345678'
+              },
+              isbn: {
+                type: 'string',
+                example: '978-3-16-148410-0'
+              },
+              publisher: {
+                type: 'string',
+                example: 'Scribner'
+              },
+              publishedYear: {
+                type: 'integer',
+                example: 1925
+              },
+              genre: {
+                type: 'string',
+                example: 'Fiction'
+              },
+              totalCopies: {
+                type: 'integer',
+                example: 10
+              },
+              availableCopies: {
+                type: 'integer',
+                example: 7
+              }
+            }
+          }
+        }
+      }
+    }
    */
   const bookData = request.body;
   try {
@@ -64,6 +112,52 @@ export const update = async (request, response) => {
   /**
    * #swagger.tags = ['Books']
    * #swagger.description = 'Update an existing book by ID'
+   * #swagger.requestBody = {
+      description: 'Book update payload',
+      required: true,
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            required: ['title', 'authorId', 'isbn'],
+            properties: {
+              title: {
+                type: 'string',
+                example: 'The Great Gatsby'
+              },
+              authorId: {
+                type: 'string',
+                example: '1234567890abcdef12345678'
+              },
+              isbn: {
+                type: 'string',
+                example: '978-3-16-148410-0'
+              },
+              publisher: {
+                type: 'string',
+                example: 'Scribner'
+              },
+              publishedYear: {
+                type: 'integer',
+                example: 1925
+              },
+              genre: {
+                type: 'string',
+                example: 'Fiction'
+              },
+              totalCopies: {
+                type: 'integer',
+                example: 10
+              },
+              availableCopies: {
+                type: 'integer',
+                example: 7
+              }
+            }
+          }
+        }
+      }
+    }
    */
   const { id } = request.params;
   const bookData = request.body;

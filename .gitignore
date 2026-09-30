@@ -142,5 +142,8 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 
+# Vitest cache directory
+.vitest/
+
 # Custom generated files
 openapi.json

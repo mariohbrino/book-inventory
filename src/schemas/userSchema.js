@@ -1,5 +1,8 @@
 // User schema for validation using Zod
 import { z } from "zod";
+
+const objectIdSchema = z.string().regex(/^[0-9a-f]{24}$/i, "Invalid ObjectId");
+
 // for POST requests to create a new user
 export const createUserSchema = z.object({
   body: z.object({
@@ -14,16 +17,18 @@ export const createUserSchema = z.object({
     role: z.string().min(1),
   }),
 });
+
 //for GET/users/:id or DELETE/users/:id operations
 export const userIdSchema = z.object({
   params: z.object({
-    id: z.string().regex(/^[a-f\d]{24}$/i, "Invalid ObjectId"),
+    id: objectIdSchema,
   }),
 });
+
 // for PATCH requests to update (PUT) a user
 export const userUpdateSchema = z.object({
   params: z.object({
-    id: z.string().regex(/^[a-f\d]{24}$/i, "Invalid ObjectId"),
+    id: objectIdSchema,
   }),
   body: z.object({
     username: z
