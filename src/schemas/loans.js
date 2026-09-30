@@ -3,12 +3,12 @@ import { Schema } from "mongoose";
 export const LoanSchema = new Schema({
   bookId: {
     type: Schema.Types.ObjectId,
-    ref: "author",
+    ref: "Author",
     required: true,
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
     required: true,
   },
   borrowedAt: { type: Date, required: true },
