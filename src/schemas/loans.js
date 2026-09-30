@@ -3,7 +3,7 @@ import { Schema } from "mongoose";
 export const LoanSchema = new Schema({
   bookId: {
     type: Schema.Types.ObjectId,
-    ref: "Author",
+    ref: "Book",
     required: true,
   },
   userId: {
