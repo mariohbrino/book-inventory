@@ -7,6 +7,10 @@ import {
 } from "../models/users.js";
 
 export const getUsers = async (request, response) => {
+  /**
+   * #swagger.tags = ['Users']
+   * #swagger.summary = 'Retrieve a list of all users'
+   */
   try {
     const users = await getUserRecords();
     return response.json(users);
@@ -17,6 +21,10 @@ export const getUsers = async (request, response) => {
 };
 
 export const createUser = async (request, response) => {
+  /**
+   * #swagger.tags = ['Users']
+   * #swagger.summary = 'Create a new user'
+   */
   try {
     const newUser = await createUserRecord(request.body);
     return response.status(201).json(newUser);
@@ -27,6 +35,10 @@ export const createUser = async (request, response) => {
 };
 
 export const getUserById = async (request, response) => {
+  /**
+   * #swagger.tags = ['Users']
+   * #swagger.summary = 'Retrieve a single user by ID'
+   */
   const { id } = request.params;
   const user = await getUserRecordById(id);
   if (!user) {
@@ -36,6 +48,10 @@ export const getUserById = async (request, response) => {
 };
 
 export const updateUser = async (request, response) => {
+  /**
+   * #swagger.tags = ['Users']
+   * #swagger.summary = 'Update an existing user by ID'
+   */
   const { id } = request.params;
   try {
     const updatedUser = await updateUserRecord(id, request.body);
@@ -50,6 +66,10 @@ export const updateUser = async (request, response) => {
 };
 
 export const deleteUser = async (request, response) => {
+  /**
+   * #swagger.tags = ['Users']
+   * #swagger.summary = 'Delete an existing user by ID'
+   */
   const { id } = request.params;
   try {
     const deletedUser = await deleteUserRecord(id);

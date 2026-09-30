@@ -49,12 +49,20 @@ export const loanUpdateSchema = z.object({
 });
 
 export const index = async (request, response) => {
+  /**
+   * #swagger.tags = ['Loans']
+   * #swagger.summary = 'Get all loans'
+   */
   void request;
   const loans = await getAllLoans();
   return response.json(loans);
 };
 
 export const show = async (request, response) => {
+  /**
+   * #swagger.tags = ['Loans']
+   * #swagger.summary = 'Get a loan by ID'
+   */
   const { id } = request.params;
   const loan = await getLoanById(id);
   if (!loan) {
@@ -64,6 +72,10 @@ export const show = async (request, response) => {
 };
 
 export const store = async (request, response) => {
+  /**
+   * #swagger.tags = ['Loans']
+   * #swagger.summary = 'Create a new loan'
+   */
   const loanData = request.body;
   try {
     const newLoan = await createLoan(loanData);
@@ -76,6 +88,10 @@ export const store = async (request, response) => {
 };
 
 export const update = async (request, response) => {
+  /**
+   * #swagger.tags = ['Loans']
+   * #swagger.summary = 'Update a loan by ID'
+   */
   const { id } = request.params;
   const loanData = request.body;
   try {
@@ -92,6 +108,10 @@ export const update = async (request, response) => {
 };
 
 export const destroy = async (request, response) => {
+  /**
+   * #swagger.tags = ['Loans']
+   * #swagger.summary = 'Delete a loan by ID'
+   */
   const { id } = request.params;
   try {
     const deletedLoan = await deleteLoan(id);

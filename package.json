@@ -1,7 +1,7 @@
 {
   "name": "book-inventory",
   "version": "0.1.0",
-  "description": "",
+  "description": "A simple book inventory API",
   "type": "module",
   "author": {
     "name": "Mario Brino",
@@ -9,7 +9,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "node --env-file .env --watch src/server.js",
+    "dev": "concurrently --names server,openapi --prefix-colors blue,magenta \"npm run dev:server\" \"npm run dev:openapi\"",
+    "dev:server": "node --env-file .env --watch src/server.js",
+    "dev:openapi": "nodemon --watch src --ext js --ignore src/openapi.json --exec \"node --env-file .env src/openapi.js\"",
+    "prestart": "node src/openapi.js",
+    "start": "node src/server.js",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint": "eslint .",
@@ -27,12 +31,15 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@vitest/coverage-v8": "^5.0.3",
+    "concurrently": "^10.0.5",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.12.0",
+    "nodemon": "^3.1.14",
     "prettier": "^3.9.8",
     "prettier-plugin-organize-imports": "^4.3.0",
     "supertest": "^7.3.0",
+    "swagger-autogen": "^2.23.7",
     "vitest": "^5.0.3"
   },
   "allowScripts": {
