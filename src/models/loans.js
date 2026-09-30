@@ -33,7 +33,7 @@ export const createLoan = async (data) => {
 export const updateLoan = async (id, data) => {
   try {
     const updatedLoan = await LoanModel.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: "after",
     });
     return updatedLoan;
   } catch (error) {
