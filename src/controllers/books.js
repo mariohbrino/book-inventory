@@ -22,12 +22,20 @@ export const bookSchema = z.object({
 });
 
 export const index = async (request, response) => {
+  /**
+   * #swagger.tags = ['Books']
+   * #swagger.description = 'Retrieve a list of all books'
+   */
   void request;
   const books = await getAllBooks();
   return response.json(books);
 };
 
 export const show = async (request, response) => {
+  /**
+   * #swagger.tags = ['Books']
+   * #swagger.description = 'Retrieve a single book by ID'
+   */
   const { id } = request.params;
   const book = await getBookById(id);
   if (!book) {
@@ -37,6 +45,10 @@ export const show = async (request, response) => {
 };
 
 export const store = async (request, response) => {
+  /**
+   * #swagger.tags = ['Books']
+   * #swagger.description = 'Create a new book'
+   */
   const bookData = request.body;
   try {
     const newBook = await createBook(bookData);
@@ -49,6 +61,10 @@ export const store = async (request, response) => {
 };
 
 export const update = async (request, response) => {
+  /**
+   * #swagger.tags = ['Books']
+   * #swagger.description = 'Update an existing book by ID'
+   */
   const { id } = request.params;
   const bookData = request.body;
   try {
@@ -65,6 +81,10 @@ export const update = async (request, response) => {
 };
 
 export const destroy = async (request, response) => {
+  /**
+   * #swagger.tags = ['Books']
+   * #swagger.description = 'Delete an existing book by ID'
+   */
   const { id } = request.params;
   try {
     const deletedBook = await deleteBook(id);
