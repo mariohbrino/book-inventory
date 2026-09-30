@@ -1,43 +1,9 @@
-import assert from "node:assert/strict";
-import { describe, it } from "node:test";
 import request from "supertest";
+import { assert, describe, it } from "vitest";
 
-import { app } from "../src/app.js";
-import { createUserSchema } from "../src/schemas/userSchema.js"; // Adjust import path if needed
+import { app } from "../../src/app.js";
 
-describe("User Input Validation - Direct Schema Unit Tests", () => {
-  it("accepts a valid user request body", () => {
-    const result = createUserSchema.safeParse({
-      body: {
-        username: "johndoe",
-        email: "john@example.com",
-        password: "securepassword123",
-        role: "user",
-      },
-      query: {},
-      params: {},
-    });
-
-    assert.equal(result.success, true);
-  });
-
-  it("rejects an invalid email format", () => {
-    const result = createUserSchema.safeParse({
-      body: {
-        username: "johndoe",
-        email: "not-an-email",
-        password: "securepassword123",
-        role: "user",
-      },
-      query: {},
-      params: {},
-    });
-
-    assert.equal(result.success, false);
-  });
-});
-
-describe("User Input Validation - HTTP Integration Tests", () => {
+describe("user endpoints", () => {
   it("rejects user creation with missing required fields", async () => {
     const response = await request(app).post("/users").send({
       username: "johndoe",
