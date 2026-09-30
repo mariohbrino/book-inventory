@@ -36,7 +36,7 @@ export const createBook = async (data) => {
 export const updateBook = async (id, data) => {
   try {
     const updatedBook = await BookModel.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: "after",
     });
     return updatedBook;
   } catch (error) {

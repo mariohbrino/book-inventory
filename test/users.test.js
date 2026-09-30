@@ -68,9 +68,9 @@ describe("User Input Validation - HTTP Integration Tests", () => {
     assert.ok(response.body.errors.some((issue) => issue.path.includes("id")));
   });
 
-  it("rejects invalid update fields on PATCH /users/:id", async () => {
+  it("rejects invalid update fields on PUT /users/:id", async () => {
     const response = await request(app)
-      .patch("/users/507f1f77bcf86cd799439012")
+      .put("/users/507f1f77bcf86cd799439012")
       .send({
         email: "invalid-email-format",
       });
