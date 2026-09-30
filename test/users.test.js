@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import request from "supertest";
 
 import { app } from "../src/app.js";
-import { createUserSchema, } from "../src/schemas/userSchema.js"; // Adjust import path if needed
+import { createUserSchema } from "../src/schemas/userSchema.js"; // Adjust import path if needed
 
 describe("User Input Validation - Direct Schema Unit Tests", () => {
   it("accepts a valid user request body", () => {
@@ -57,7 +57,7 @@ describe("User Input Validation - HTTP Integration Tests", () => {
 
     assert.equal(response.status, 400);
     assert.ok(
-      response.body.errors.some((issue) => issue.path.includes("password"))
+      response.body.errors.some((issue) => issue.path.includes("password")),
     );
   });
 
@@ -65,9 +65,7 @@ describe("User Input Validation - HTTP Integration Tests", () => {
     const response = await request(app).get("/users/invalid-id");
 
     assert.equal(response.status, 400);
-    assert.ok(
-      response.body.errors.some((issue) => issue.path.includes("id"))
-    );
+    assert.ok(response.body.errors.some((issue) => issue.path.includes("id")));
   });
 
   it("rejects invalid update fields on PATCH /users/:id", async () => {
@@ -79,7 +77,7 @@ describe("User Input Validation - HTTP Integration Tests", () => {
 
     assert.equal(response.status, 400);
     assert.ok(
-      response.body.errors.some((issue) => issue.path.includes("email"))
+      response.body.errors.some((issue) => issue.path.includes("email")),
     );
   });
 });
