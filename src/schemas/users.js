@@ -14,7 +14,9 @@ export const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  age: Number,
+  age: {
+    type: Number,
+  },
   role: {
     type: String,
     required: true,
