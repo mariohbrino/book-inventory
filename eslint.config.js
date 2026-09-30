@@ -5,6 +5,9 @@ import globals from "globals";
 export default defineConfig([
   pluginJs.configs.recommended,
   {
+    ignores: ["coverage/**"],
+  },
+  {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
       globals: {
