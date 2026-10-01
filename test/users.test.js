@@ -68,6 +68,13 @@ describe("User Input Validation - HTTP Integration Tests", () => {
     assert.ok(response.body.errors.some((issue) => issue.path.includes("id")));
   });
 
+  it("rejects an invalid user ID format on DELETE by ID", async () => {
+    const response = await request(app).delete("/users/invalid-id");
+
+    assert.equal(response.status, 400);
+    assert.ok(response.body.errors.some((issue) => issue.path.includes("id")));
+  });
+
   it("rejects invalid update fields on PATCH /users/:id", async () => {
     const response = await request(app)
       .patch("/users/507f1f77bcf86cd799439012")
