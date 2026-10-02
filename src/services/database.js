@@ -1,5 +1,7 @@
 import { createConnection } from "mongoose";
 
+import { loadDatabaseConfig } from "../configs/database.js";
+
 /**
  * The MongoDB connection instance.
  */
@@ -11,7 +13,7 @@ export const connection = createConnection();
  */
 export const db = async () => {
   try {
-    const databaseUrl = process.env["DATABASE_URL"];
+    const { databaseUrl } = loadDatabaseConfig();
     await connection.openUri(databaseUrl);
     console.log("Connected to MongoDB");
     return connection;

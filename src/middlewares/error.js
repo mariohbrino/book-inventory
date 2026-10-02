@@ -1,3 +1,7 @@
+import { loadAppConfig } from "../configs/app.js";
+
+const { isDevelopment } = loadAppConfig();
+
 export const handleNotFoundMiddleware = (request, response, next) => {
   void response;
   const error = new Error(
@@ -27,7 +31,7 @@ export const errorHandlerMiddleware = (error, request, response, next) => {
     error: error.message,
   };
 
-  if (process.env["NODE_ENV"] === "development") {
+  if (isDevelopment) {
     context.stack = JSON.stringify(error.stack, null, 2);
   }
 
