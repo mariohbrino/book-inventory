@@ -11,7 +11,7 @@ export const connection = createConnection();
  * Connects to the MongoDB database using the connection
  * URL from environment variables.
  */
-export const db = async () => {
+export const connectDatabase = async () => {
   try {
     const { databaseUrl } = loadDatabaseConfig();
     await connection.openUri(databaseUrl);
