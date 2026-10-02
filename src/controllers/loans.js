@@ -12,8 +12,13 @@ export const index = async (request, response) => {
    * #swagger.summary = 'Get all loans'
    */
   void request;
-  const loans = await getAllLoans();
-  return response.json(loans);
+  try {
+    const loans = await getAllLoans();
+    return response.json(loans);
+  } catch (error) {
+    console.log("Error retrieving loans: ", error);
+    return response.status(500).json({ error: "Error retrieving loans" });
+  }
 };
 
 export const show = async (request, response) => {
@@ -21,12 +26,17 @@ export const show = async (request, response) => {
    * #swagger.tags = ['Loans']
    * #swagger.summary = 'Get a loan by ID'
    */
-  const { id } = request.params;
-  const loan = await getLoanById(id);
-  if (!loan) {
-    return response.status(404).json({ error: "Loan not found" });
+  try {
+    const { id } = request.params;
+    const loan = await getLoanById(id);
+    if (!loan) {
+      return response.status(404).json({ error: "Loan not found" });
+    }
+    return response.json(loan);
+  } catch (error) {
+    console.log("Error retrieving loan: ", error);
+    return response.status(500).json({ error: "Error retrieving loan" });
   }
-  return response.json(loan);
 };
 
 export const store = async (request, response) => {
@@ -71,8 +81,8 @@ export const store = async (request, response) => {
       }
     }
    */
-  const loanData = request.body;
   try {
+    const loanData = request.body;
     const newLoan = await createLoan(loanData);
     console.log("Loan created successfully: ", newLoan);
     return response.status(201).json(newLoan);
@@ -124,9 +134,9 @@ export const update = async (request, response) => {
       }
     }
    */
-  const { id } = request.params;
-  const loanData = request.body;
   try {
+    const { id } = request.params;
+    const loanData = request.body;
     const updatedLoan = await updateLoan(id, loanData);
     if (!updatedLoan) {
       return response.status(404).json({ error: "Loan not found" });
@@ -144,8 +154,8 @@ export const destroy = async (request, response) => {
    * #swagger.tags = ['Loans']
    * #swagger.summary = 'Delete a loan by ID'
    */
-  const { id } = request.params;
   try {
+    const { id } = request.params;
     const deletedLoan = await deleteLoan(id);
     if (!deletedLoan) {
       return response.status(404).json({ error: "Loan not found" });

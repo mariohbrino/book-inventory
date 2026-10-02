@@ -12,8 +12,13 @@ export const index = async (request, response) => {
    * #swagger.description = 'Retrieve a list of all books'
    */
   void request;
-  const books = await getAllBooks();
-  return response.json(books);
+  try {
+    const books = await getAllBooks();
+    return response.json(books);
+  } catch (error) {
+    console.log("Error retrieving books: ", error);
+    return response.status(500).json({ error: "Error retrieving books" });
+  }
 };
 
 export const show = async (request, response) => {
@@ -21,12 +26,17 @@ export const show = async (request, response) => {
    * #swagger.tags = ['Books']
    * #swagger.description = 'Retrieve a single book by ID'
    */
-  const { id } = request.params;
-  const book = await getBookById(id);
-  if (!book) {
-    return response.status(404).json({ error: "Book not found" });
+  try {
+    const { id } = request.params;
+    const book = await getBookById(id);
+    if (!book) {
+      return response.status(404).json({ error: "Book not found" });
+    }
+    return response.json(book);
+  } catch (error) {
+    console.log("Error retrieving book: ", error);
+    return response.status(500).json({ error: "Error retrieving book" });
   }
-  return response.json(book);
 };
 
 export const store = async (request, response) => {
@@ -80,8 +90,8 @@ export const store = async (request, response) => {
       }
     }
    */
-  const bookData = request.body;
   try {
+    const bookData = request.body;
     const newBook = await createBook(bookData);
     console.log("Book created successfully: ", newBook);
     return response.status(201).json(newBook);
@@ -142,9 +152,9 @@ export const update = async (request, response) => {
       }
     }
    */
-  const { id } = request.params;
-  const bookData = request.body;
   try {
+    const { id } = request.params;
+    const bookData = request.body;
     const updatedBook = await updateBook(id, bookData);
     if (!updatedBook) {
       return response.status(404).json({ error: "Book not found" });
@@ -162,8 +172,8 @@ export const destroy = async (request, response) => {
    * #swagger.tags = ['Books']
    * #swagger.description = 'Delete an existing book by ID'
    */
-  const { id } = request.params;
   try {
+    const { id } = request.params;
     const deletedBook = await deleteBook(id);
     if (!deletedBook) {
       return response.status(404).json({ error: "Book not found" });
