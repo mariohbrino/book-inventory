@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+import { loadEnv } from "vite";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -6,6 +7,7 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   test: {
+    env: loadEnv("test", process.cwd(), ""),
     silent: true,
     typecheck: {
       include: ["src/**/*.{ts,js}", "tests/**/*.{ts,js}"],
