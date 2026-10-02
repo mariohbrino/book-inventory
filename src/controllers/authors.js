@@ -1,8 +1,8 @@
 import {
   createAuthor as createAuthorRecord,
   deleteAuthor as deleteAuthorRecord,
-  getAllAuthors as getAuthorRecords,
   getAuthorById as getAuthorRecordById,
+  getAllAuthors as getAuthorRecords,
   updateAuthor as updateAuthorRecord,
 } from "../models/authors.js";
 

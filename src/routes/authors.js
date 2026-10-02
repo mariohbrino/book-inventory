@@ -1,12 +1,6 @@
 import express from "express";
 
-import {
-  destroy,
-  index,
-  show,
-  store,
-  update,
-} from "../controllers/authors.js";
+import { destroy, index, show, store, update } from "../controllers/authors.js";
 import { validate } from "../middlewares/validate.js";
 import {
   authorIdSchema,

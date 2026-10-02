@@ -37,11 +37,9 @@ describe("author endpoints", () => {
   });
 
   it("rejects an invalid author ID format on PUT", async () => {
-    const response = await request(app)
-      .put("/authors/invalid-id")
-      .send({
-        name: "George Orwell",
-      });
+    const response = await request(app).put("/authors/invalid-id").send({
+      name: "George Orwell",
+    });
 
     assert.equal(response.status, 400);
     assert.ok(response.body.errors.some((issue) => issue.path.includes("id")));
