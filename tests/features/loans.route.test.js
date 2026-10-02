@@ -42,7 +42,7 @@ describe("loan endpoints", () => {
     mongoose.deleteModel(LoanModel.modelName);
   });
 
-  it("can load all loans", async () => {
+  it("can fetch all loans", async () => {
     mockingoose(LoanModel).toReturn(loansData, "find");
 
     const response = await request(app).get("/loans");
@@ -51,7 +51,7 @@ describe("loan endpoints", () => {
     assert.deepEqual(response.body, loansData);
   });
 
-  it("can load a loan by ID", async () => {
+  it("can fetch a loan by ID", async () => {
     const loan = loansData[0];
     mockingoose(LoanModel).toReturn(loan, "findOne");
 
