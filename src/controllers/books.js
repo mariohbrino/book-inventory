@@ -93,8 +93,9 @@ export const store = async (request, response) => {
   try {
     const bookData = request.body;
     const newBook = await createBook(bookData);
-    console.log("Book created successfully: ", newBook);
-    return response.status(201).json(newBook);
+    return response
+      .status(201)
+      .json({ message: "Book created successfully", data: newBook });
   } catch (error) {
     console.log("Error creating book: ", error);
     return response.status(500).json({ error: "Error creating book" });
@@ -159,8 +160,10 @@ export const update = async (request, response) => {
     if (!updatedBook) {
       return response.status(404).json({ error: "Book not found" });
     }
-    console.log("Book updated successfully: ", updatedBook);
-    return response.json(updatedBook);
+    return response.json({
+      message: "Book updated successfully",
+      data: updatedBook,
+    });
   } catch (error) {
     console.log("Error updating book: ", error);
     return response.status(500).json({ error: "Error updating book" });
@@ -178,8 +181,10 @@ export const destroy = async (request, response) => {
     if (!deletedBook) {
       return response.status(404).json({ error: "Book not found" });
     }
-    console.log("Book deleted successfully: ", deletedBook);
-    return response.json(deletedBook);
+    return response.json({
+      message: "Book deleted successfully",
+      data: deletedBook,
+    });
   } catch (error) {
     console.log("Error deleting book: ", error);
     return response.status(500).json({ error: "Error deleting book" });

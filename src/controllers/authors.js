@@ -58,7 +58,9 @@ export const store = async (request, response) => {
    */
   try {
     const newAuthor = await createAuthorRecord(request.body);
-    return response.status(201).json(newAuthor);
+    return response
+      .status(201)
+      .json({ message: "Author created successfully", data: newAuthor });
   } catch (error) {
     console.log("Error creating author: ", error);
     return response.status(500).json({ error: "Error creating author" });
@@ -128,7 +130,10 @@ export const update = async (request, response) => {
       return response.status(404).json({ error: "Author not found" });
     }
 
-    return response.json(updatedAuthor);
+    return response.json({
+      message: "Author updated successfully",
+      data: updatedAuthor,
+    });
   } catch (error) {
     console.log("Error updating author: ", error);
     return response.status(500).json({ error: "Error updating author" });
@@ -148,8 +153,10 @@ export const destroy = async (request, response) => {
       return response.status(404).json({ error: "Author not found" });
     }
 
-    console.log("Author deleted successfully: ", deletedAuthor);
-    return response.json(deletedAuthor);
+    return response.json({
+      message: "Author deleted successfully",
+      data: deletedAuthor,
+    });
   } catch (error) {
     console.log("Error deleting author: ", error);
     return response.status(500).json({ error: "Error deleting author" });
