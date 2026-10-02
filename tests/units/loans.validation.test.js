@@ -1,8 +1,8 @@
 import { assert, describe, it } from "vitest";
 
-import { loanSchema } from "../../src/controllers/loans.js";
+import { loanSchema } from "../../src/validations/loan.js";
 
-describe("user schema", () => {
+describe("loan schema", () => {
   it("accepts a valid loan request envelope", () => {
     const result = loanSchema.safeParse({
       body: {

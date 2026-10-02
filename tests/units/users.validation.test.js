@@ -1,6 +1,6 @@
 import { assert, describe, it } from "vitest";
 
-import { createUserSchema } from "../../src/schemas/userSchema.js"; // Adjust import path if needed
+import { createUserSchema } from "../../src/validations/user.js";
 
 describe("user schema", () => {
   it("accepts a valid user request body", () => {

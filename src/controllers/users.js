@@ -6,7 +6,7 @@ import {
   updateUser as updateUserRecord,
 } from "../models/users.js";
 
-export const getUsers = async (request, response) => {
+export const index = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Retrieve a list of all users'
@@ -20,7 +20,7 @@ export const getUsers = async (request, response) => {
   }
 };
 
-export const createUser = async (request, response) => {
+export const store = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Create a new user'
@@ -68,7 +68,7 @@ export const createUser = async (request, response) => {
   }
 };
 
-export const getUserById = async (request, response) => {
+export const show = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Retrieve a single user by ID'
@@ -81,7 +81,7 @@ export const getUserById = async (request, response) => {
   return response.json(user);
 };
 
-export const updateUser = async (request, response) => {
+export const update = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Update an existing user by ID'
@@ -133,7 +133,7 @@ export const updateUser = async (request, response) => {
   }
 };
 
-export const deleteUser = async (request, response) => {
+export const destroy = async (request, response) => {
   /**
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Delete an existing user by ID'

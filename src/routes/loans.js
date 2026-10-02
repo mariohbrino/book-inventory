@@ -1,16 +1,12 @@
 import express from "express";
 
+import { destroy, index, show, store, update } from "../controllers/loans.js";
+import { validate } from "../middlewares/validate.js";
 import {
-  destroy,
-  index,
   loanIdSchema,
   loanSchema,
   loanUpdateSchema,
-  show,
-  store,
-  update,
-} from "../controllers/loans.js";
-import { validate } from "../middlewares/validate.js";
+} from "../validations/loan.js";
 
 const router = express.Router();
 
