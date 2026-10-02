@@ -146,4 +146,4 @@ vite.config.ts.timestamp-*
 .vitest/
 
 # Custom generated files
-openapi.json
+/openapi.json

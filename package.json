@@ -11,8 +11,8 @@
   "scripts": {
     "dev": "concurrently --names server,openapi --prefix-colors blue,magenta \"npm run dev:server\" \"npm run dev:openapi\"",
     "dev:server": "node --env-file .env --watch src/server.js",
-    "dev:openapi": "nodemon --watch src --ext js --ignore src/openapi.json --exec \"node --env-file .env src/openapi.js\"",
-    "openapi": "node --env-file .env src/openapi.js",
+    "dev:openapi": "nodemon --watch src/openapi.json --exec \"node src/openapi.js\"",
+    "openapi": "node src/openapi.js",
     "prestart": "node src/openapi.js",
     "start": "node src/server.js",
     "format": "prettier --check .",
@@ -27,7 +27,6 @@
   "dependencies": {
     "express": "^5.2.1",
     "mongoose": "^9.10.2",
-    "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
     "zod": "^4.6.5"
   },

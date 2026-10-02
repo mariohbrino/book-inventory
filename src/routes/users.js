@@ -19,6 +19,6 @@ router.get("/", getUsers);
 router.post("/", validate(createUserSchema), createUser);
 router.get("/:id", validate(userIdSchema), getUserById);
 router.put("/:id", validate(userUpdateSchema), updateUser);
-router.delete("/:id", deleteUser);
+router.delete("/:id", validate(userIdSchema), deleteUser);
 
 export { router as usersRouter };

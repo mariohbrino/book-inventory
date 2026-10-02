@@ -1,0 +1,526 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Book Inventory API",
+    "description": "API for managing users, books, and loans.",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    { "name": "Home" },
+    { "name": "Users" },
+    { "name": "Books" },
+    { "name": "Loans" }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getHome",
+        "tags": ["Home"],
+        "summary": "Get the API welcome message",
+        "responses": {
+          "200": {
+            "description": "Welcome message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["message"],
+                  "properties": { "message": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "getUsers",
+        "tags": ["Users"],
+        "summary": "List users",
+        "responses": {
+          "200": {
+            "description": "Users returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "post": {
+        "operationId": "createUser",
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUser" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/users/{id}": {
+      "parameters": [{ "$ref": "#/components/parameters/ObjectId" }],
+      "get": {
+        "operationId": "getUserById",
+        "tags": ["Users"],
+        "summary": "Get a user by ID",
+        "responses": {
+          "200": {
+            "description": "User returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "put": {
+        "operationId": "updateUser",
+        "tags": ["Users"],
+        "summary": "Update a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateUser" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteUser",
+        "tags": ["Users"],
+        "summary": "Delete a user",
+        "responses": {
+          "200": {
+            "description": "User deleted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "operationId": "getBooks",
+        "tags": ["Books"],
+        "summary": "List books",
+        "responses": {
+          "200": {
+            "description": "Books returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Book" }
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "post": {
+        "operationId": "createBook",
+        "tags": ["Books"],
+        "summary": "Create a book",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BookInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Book created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/books/{id}": {
+      "parameters": [{ "$ref": "#/components/parameters/ObjectId" }],
+      "get": {
+        "operationId": "getBookById",
+        "tags": ["Books"],
+        "summary": "Get a book by ID",
+        "responses": {
+          "200": {
+            "description": "Book returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "put": {
+        "operationId": "updateBook",
+        "tags": ["Books"],
+        "summary": "Update a book",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/BookInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Book updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteBook",
+        "tags": ["Books"],
+        "summary": "Delete a book",
+        "responses": {
+          "200": {
+            "description": "Book deleted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/loans": {
+      "get": {
+        "operationId": "getLoans",
+        "tags": ["Loans"],
+        "summary": "List loans",
+        "responses": {
+          "200": {
+            "description": "Loans returned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Loan" }
+                }
+              }
+            }
+          },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "post": {
+        "operationId": "createLoan",
+        "tags": ["Loans"],
+        "summary": "Create a loan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoanInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Loan created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Loan" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/loans/{id}": {
+      "parameters": [{ "$ref": "#/components/parameters/ObjectId" }],
+      "get": {
+        "operationId": "getLoanById",
+        "tags": ["Loans"],
+        "summary": "Get a loan by ID",
+        "responses": {
+          "200": {
+            "description": "Loan returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Loan" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "put": {
+        "operationId": "updateLoan",
+        "tags": ["Loans"],
+        "summary": "Update a loan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoanInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Loan updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Loan" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteLoan",
+        "tags": ["Loans"],
+        "summary": "Delete a loan",
+        "responses": {
+          "200": {
+            "description": "Loan deleted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Loan" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/ValidationError" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ObjectId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "MongoDB ObjectId",
+        "schema": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" },
+        "example": "507f1f77bcf86cd799439011"
+      }
+    },
+    "schemas": {
+      "CreateUser": {
+        "type": "object",
+        "required": ["username", "email", "password", "role"],
+        "properties": {
+          "username": { "type": "string", "minLength": 2 },
+          "email": { "type": "string", "format": "email" },
+          "password": { "type": "string", "minLength": 8, "writeOnly": true },
+          "age": { "type": "integer", "minimum": 18 },
+          "role": { "type": "string", "minLength": 1 }
+        }
+      },
+      "UpdateUser": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string", "minLength": 2 },
+          "email": { "type": "string", "format": "email" },
+          "password": { "type": "string", "minLength": 8, "writeOnly": true },
+          "age": { "type": "integer", "minimum": 18 },
+          "role": { "type": "string", "minLength": 1 }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" },
+          "username": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "age": { "type": "integer" },
+          "role": { "type": "string" }
+        }
+      },
+      "BookInput": {
+        "type": "object",
+        "required": ["title", "authorId", "isbn"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "authorId": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" },
+          "isbn": { "type": "string", "minLength": 10 },
+          "publisher": { "type": "string" },
+          "publishedYear": { "type": "integer" },
+          "genre": { "type": "string" },
+          "totalCopies": { "type": "integer", "minimum": 0 },
+          "availableCopies": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "Book": {
+        "allOf": [
+          { "$ref": "#/components/schemas/BookInput" },
+          {
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" }
+            }
+          }
+        ]
+      },
+      "LoanInput": {
+        "type": "object",
+        "required": ["bookId", "userId", "borrowedAt", "dueAt"],
+        "properties": {
+          "bookId": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" },
+          "userId": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" },
+          "borrowedAt": { "type": "string", "format": "date-time" },
+          "dueAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Must be on or after borrowedAt."
+          },
+          "returnedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "If supplied, must be on or after borrowedAt."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Loan": {
+        "allOf": [
+          { "$ref": "#/components/schemas/LoanInput" },
+          {
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "pattern": "^[0-9a-fA-F]{24}$" }
+            }
+          }
+        ]
+      },
+      "ValidationError": {
+        "type": "object",
+        "required": ["errors"],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "string" },
+                "path": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [{ "type": "string" }, { "type": "integer" }]
+                  }
+                },
+                "message": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": { "error": { "type": "string" } }
+      }
+    },
+    "responses": {
+      "ValidationError": {
+        "description": "Request data failed validation",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ValidationError" }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The requested resource was not found",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "An unexpected server error occurred",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" }
+          }
+        }
+      }
+    }
+  }
+}

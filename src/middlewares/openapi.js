@@ -1,7 +1,9 @@
 import swaggerUi from "swagger-ui-express";
 
-import openapiDocument from "../openapi.json" with { type: "json" };
+import openApiDocument from "../openapi.json" with { type: "json" };
+
+export { openApiDocument };
 
 export const openApiMiddleware = () => {
-  return [swaggerUi.serve, swaggerUi.setup(openapiDocument)];
+  return [swaggerUi.serve, swaggerUi.setup(openApiDocument)];
 };
