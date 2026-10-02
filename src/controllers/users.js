@@ -73,12 +73,17 @@ export const show = async (request, response) => {
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Retrieve a single user by ID'
    */
-  const { id } = request.params;
-  const user = await getUserRecordById(id);
-  if (!user) {
-    return response.status(404).json({ error: "User not found" });
+  try {
+    const { id } = request.params;
+    const user = await getUserRecordById(id);
+    if (!user) {
+      return response.status(404).json({ error: "User not found" });
+    }
+    return response.json(user);
+  } catch (error) {
+    console.log("Error retrieving user: ", error);
+    return response.status(500).json({ error: "Error retrieving user" });
   }
-  return response.json(user);
 };
 
 export const update = async (request, response) => {
@@ -120,8 +125,8 @@ export const update = async (request, response) => {
       }
     }
    */
-  const { id } = request.params;
   try {
+    const { id } = request.params;
     const updatedUser = await updateUserRecord(id, request.body);
     if (!updatedUser) {
       return response.status(404).json({ error: "User not found" });
@@ -138,8 +143,8 @@ export const destroy = async (request, response) => {
    * #swagger.tags = ['Users']
    * #swagger.summary = 'Delete an existing user by ID'
    */
-  const { id } = request.params;
   try {
+    const { id } = request.params;
     const deletedUser = await deleteUserRecord(id);
     if (!deletedUser) {
       return response.status(404).json({ error: "User not found" });
