@@ -74,11 +74,16 @@ export const getUserById = async (request, response) => {
    * #swagger.summary = 'Retrieve a single user by ID'
    */
   const { id } = request.params;
-  const user = await getUserRecordById(id);
-  if (!user) {
-    return response.status(404).json({ error: "User not found" });
+  try {
+    const user = await getUserRecordById(id);
+    if (!user) {
+      return response.status(404).json({ error: "User not found" });
+    }
+    return response.json(user);
+  } catch (error) {
+    console.log("Error fetching user: ", error);
+    return response.status(500).json({ error: "Error fetching user" });
   }
-  return response.json(user);
 };
 
 export const updateUser = async (request, response) => {

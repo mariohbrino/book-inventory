@@ -9,6 +9,7 @@ export const getAllLoans = async () => {
     return loans;
   } catch (error) {
     console.log("Error fetching loans: ", error);
+    throw error;
   }
 };
 
@@ -18,6 +19,7 @@ export const getLoanById = async (id) => {
     return loan;
   } catch (error) {
     console.log("Error fetching loan by ID: ", error);
+    throw error;
   }
 };
 
@@ -37,5 +39,6 @@ export const deleteLoan = async (id) => {
     return deletedLoan;
   } catch (error) {
     console.log("Error deleting loan: ", error);
+    throw error;
   }
 };

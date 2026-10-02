@@ -54,8 +54,13 @@ export const index = async (request, response) => {
    * #swagger.summary = 'Get all loans'
    */
   void request;
-  const loans = await getAllLoans();
-  return response.json(loans);
+  try {
+    const loans = await getAllLoans();
+    return response.json(loans);
+  } catch (error) {
+    console.log("Error fetching loans: ", error);
+    return response.status(500).json({ error: "Error fetching loans" });
+  }
 };
 
 export const show = async (request, response) => {
@@ -64,11 +69,16 @@ export const show = async (request, response) => {
    * #swagger.summary = 'Get a loan by ID'
    */
   const { id } = request.params;
-  const loan = await getLoanById(id);
-  if (!loan) {
-    return response.status(404).json({ error: "Loan not found" });
+  try {
+    const loan = await getLoanById(id);
+    if (!loan) {
+      return response.status(404).json({ error: "Loan not found" });
+    }
+    return response.json(loan);
+  } catch (error) {
+    console.log("Error fetching loan: ", error);
+    return response.status(500).json({ error: "Error fetching loan" });
   }
-  return response.json(loan);
 };
 
 export const store = async (request, response) => {

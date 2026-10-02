@@ -17,6 +17,7 @@ export const getAllUsers = async () => {
     return users;
   } catch (error) {
     console.log("Error fetching users: ", error);
+    throw error;
   }
 };
 
@@ -68,6 +69,9 @@ export const updateUser = async (id, data) => {
 export const deleteUser = async (id) => {
   try {
     const deletedUser = await UserModel.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return null;
+    }
     const user = deletedUser.toObject();
     delete user.password;
     return user;

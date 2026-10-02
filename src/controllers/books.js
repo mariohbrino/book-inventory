@@ -23,14 +23,28 @@ export const bookSchema = z.object({
   }),
 });
 
+export const bookIdSchema = z.object({
+  params: z.object({ id: objectIdSchema }),
+});
+
+export const bookUpdateSchema = z.object({
+  params: z.object({ id: objectIdSchema }),
+  body: bookSchema.shape.body,
+});
+
 export const index = async (request, response) => {
   /**
    * #swagger.tags = ['Books']
    * #swagger.description = 'Retrieve a list of all books'
    */
   void request;
-  const books = await getAllBooks();
-  return response.json(books);
+  try {
+    const books = await getAllBooks();
+    return response.json(books);
+  } catch (error) {
+    console.log("Error fetching books: ", error);
+    return response.status(500).json({ error: "Error fetching books" });
+  }
 };
 
 export const show = async (request, response) => {
@@ -39,11 +53,16 @@ export const show = async (request, response) => {
    * #swagger.description = 'Retrieve a single book by ID'
    */
   const { id } = request.params;
-  const book = await getBookById(id);
-  if (!book) {
-    return response.status(404).json({ error: "Book not found" });
+  try {
+    const book = await getBookById(id);
+    if (!book) {
+      return response.status(404).json({ error: "Book not found" });
+    }
+    return response.json(book);
+  } catch (error) {
+    console.log("Error fetching book: ", error);
+    return response.status(500).json({ error: "Error fetching book" });
   }
-  return response.json(book);
 };
 
 export const store = async (request, response) => {
