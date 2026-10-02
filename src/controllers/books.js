@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import {
   createBook,
   deleteBook,
@@ -7,21 +5,6 @@ import {
   getBookById,
   updateBook,
 } from "../models/books.js";
-
-const objectIdSchema = z.string().regex(/^[0-9a-f]{24}$/i, "Invalid ObjectId");
-
-export const bookSchema = z.object({
-  body: z.object({
-    title: z.string().min(1),
-    authorId: objectIdSchema,
-    isbn: z.string().min(10),
-    publisher: z.string().optional(),
-    publishedYear: z.coerce.number().int().optional(),
-    genre: z.string().optional(),
-    totalCopies: z.coerce.number().int().min(0).optional(),
-    availableCopies: z.coerce.number().int().min(0).optional(),
-  }),
-});
 
 export const index = async (request, response) => {
   /**
