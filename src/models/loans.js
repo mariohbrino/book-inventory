@@ -9,6 +9,7 @@ export const getAllLoans = async () => {
     return loans;
   } catch (error) {
     console.log("Error fetching loans: ", error);
+    throw error;
   }
 };
 
@@ -18,17 +19,30 @@ export const getLoanById = async (id) => {
     return loan;
   } catch (error) {
     console.log("Error fetching loan by ID: ", error);
+    throw error;
   }
 };
 
 export const createLoan = async (data) => {
-  return LoanModel.create(data);
+  try {
+    const newLoan = await LoanModel.create(data);
+    return newLoan;
+  } catch (error) {
+    console.log("Error creating loan: ", error);
+    throw error;
+  }
 };
 
 export const updateLoan = async (id, data) => {
-  return LoanModel.findByIdAndUpdate(id, data, {
-    returnDocument: "after",
-  });
+  try {
+    const updatedLoan = await LoanModel.findByIdAndUpdate(id, data, {
+      returnDocument: "after",
+    });
+    return updatedLoan;
+  } catch (error) {
+    console.log("Error updating loan: ", error);
+    throw error;
+  }
 };
 
 export const deleteLoan = async (id) => {
@@ -37,5 +51,6 @@ export const deleteLoan = async (id) => {
     return deletedLoan;
   } catch (error) {
     console.log("Error deleting loan: ", error);
+    throw error;
   }
 };
