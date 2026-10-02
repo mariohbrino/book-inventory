@@ -84,8 +84,9 @@ export const store = async (request, response) => {
   try {
     const loanData = request.body;
     const newLoan = await createLoan(loanData);
-    console.log("Loan created successfully: ", newLoan);
-    return response.status(201).json(newLoan);
+    return response
+      .status(201)
+      .json({ message: "Loan created successfully", data: newLoan });
   } catch (error) {
     console.log("Error creating loan: ", error);
     return response.status(500).json({ error: "Error creating loan" });
@@ -141,8 +142,10 @@ export const update = async (request, response) => {
     if (!updatedLoan) {
       return response.status(404).json({ error: "Loan not found" });
     }
-    console.log("Loan updated successfully: ", updatedLoan);
-    return response.json(updatedLoan);
+    return response.json({
+      message: "Loan updated successfully",
+      data: updatedLoan,
+    });
   } catch (error) {
     console.log("Error updating loan: ", error);
     return response.status(500).json({ error: "Error updating loan" });
@@ -160,8 +163,10 @@ export const destroy = async (request, response) => {
     if (!deletedLoan) {
       return response.status(404).json({ error: "Loan not found" });
     }
-    console.log("Loan deleted successfully: ", deletedLoan);
-    return response.json(deletedLoan);
+    return response.json({
+      message: "Loan deleted successfully",
+      data: deletedLoan,
+    });
   } catch (error) {
     console.log("Error deleting loan: ", error);
     return response.status(500).json({ error: "Error deleting loan" });

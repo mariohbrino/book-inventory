@@ -15,7 +15,7 @@ export const index = async (request, response) => {
     const users = await getUserRecords();
     return response.json(users);
   } catch (error) {
-    console.log("Error fetting users: ", error);
+    console.log("Error fetching users: ", error);
     return response.status(500).json({ error: "Error fetching users" });
   }
 };
@@ -61,7 +61,9 @@ export const store = async (request, response) => {
    */
   try {
     const newUser = await createUserRecord(request.body);
-    return response.status(201).json(newUser);
+    return response
+      .status(201)
+      .json({ message: "User created successfully", data: newUser });
   } catch (error) {
     console.log("Error creating user: ", error);
     return response.status(500).json({ error: "Error creating user" });
@@ -131,7 +133,10 @@ export const update = async (request, response) => {
     if (!updatedUser) {
       return response.status(404).json({ error: "User not found" });
     }
-    return response.json(updatedUser);
+    return response.json({
+      message: "User updated successfully",
+      data: updatedUser,
+    });
   } catch (error) {
     console.log("Error updating user: ", error);
     return response.status(500).json({ error: "Error updating user" });
@@ -149,8 +154,10 @@ export const destroy = async (request, response) => {
     if (!deletedUser) {
       return response.status(404).json({ error: "User not found" });
     }
-    console.log("User deleted successfully: ", deletedUser);
-    return response.json(deletedUser);
+    return response.json({
+      message: "User deleted successfully",
+      data: deletedUser,
+    });
   } catch (error) {
     console.log("Error deleting user: ", error);
     return response.status(500).json({ error: "Error deleting user" });
