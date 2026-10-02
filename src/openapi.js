@@ -1,8 +1,8 @@
 import swaggerAutogen from "swagger-autogen";
 
-const PORT = process.env["PORT"] || 3000;
-const PRODUCTION = process.env["NODE_ENV"] === "production";
-const BASE_URL = PRODUCTION ? process.env["BASE_URL"] : `localhost:${PORT}`;
+import { loadAppConfig } from "./configs/app.js";
+
+const { baseUrl, isDevelopment } = loadAppConfig();
 
 const outputFile = "./openapi.json";
 const routes = ["./routes/index.js"];
@@ -12,8 +12,8 @@ const doc = {
     description: "A simple book inventory API",
     version: "0.1.0",
   },
-  host: BASE_URL,
-  schemes: PRODUCTION ? ["https"] : ["http", "https"],
+  host: baseUrl,
+  schemes: isDevelopment ? ["http", "https"] : ["https"],
 };
 
 const generateSwagger = swaggerAutogen({ openapi: "3.2.0" });

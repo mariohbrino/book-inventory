@@ -1,14 +1,14 @@
 import { app } from "./app.js";
-import { db } from "./services/database.js";
+import { loadAppConfig } from "./configs/app.js";
+import { connectDatabase } from "./services/database.js";
 
-const NODE_ENV = process.env["NODE_ENV"]?.toLowerCase() || "production";
-const PORT = process.env["PORT"] || 3000;
+const { nodeEnv, port } = loadAppConfig();
 
-app.listen(PORT, async () => {
+app.listen(port, async () => {
   try {
-    console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`Environment: ${NODE_ENV}`);
-    await db();
+    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Environment: ${nodeEnv}`);
+    await connectDatabase();
   } catch (error) {
     console.error("Error connecting to the database:", error);
   }
