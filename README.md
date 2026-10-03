@@ -18,3 +18,30 @@ server.
 ```bash
 npm run dev
 ```
+
+Check code style with the following command:
+
+```bash
+npm run lint
+npm run format
+```
+
+Apply automatic code formatting with the following command:
+
+```bash
+npm run format:fix
+npm run lint:fix
+```
+
+## Testing
+
+The project includes several test scripts to ensure code quality and functionality.
+You can run all tests, unit tests, feature tests, or generate a test coverage
+report using the commands below.
+
+```bash
+npm run test
+npm run test:units
+npm run test:features
+npm run test:coverage
+```
