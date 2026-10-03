@@ -12,7 +12,7 @@ const app = express();
 
 // Apply middlewares
 app.use(express.json());
-app.use("/api-docs", openApiMiddleware());
+app.use(openApiMiddleware());
 app.use(responseMiddleware);
 
 // Mount all routes
