@@ -1,7 +1,7 @@
 import { LoanSchema } from "../schemas/loans.js";
 import { connection } from "../services/database.js";
 
-const LoanModel = connection.model("Loan", LoanSchema);
+export const LoanModel = connection.model("Loan", LoanSchema);
 
 export const getAllLoans = async () => {
   try {
