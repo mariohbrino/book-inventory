@@ -25,8 +25,7 @@ const readTokenPayload = (token) => {
 
 export const login = (request, response) => {
   /**
-   * #swagger.tags = ['Auth']
-   * #swagger.description = 'Starts the OAuth 2.0 login flow by redirecting to Auth0'
+   * #swagger.ignore = true
    */
   void request;
 
@@ -45,8 +44,7 @@ export const login = (request, response) => {
 
 export const callback = async (request, response) => {
   /**
-   * #swagger.tags = ['Auth']
-   * #swagger.description = 'Auth0 redirects here with the authorization code'
+   * #swagger.ignore = true
    */
   const { code, state } = request.query;
 
@@ -105,8 +103,7 @@ export const callback = async (request, response) => {
 
 export const logout = (request, response) => {
   /**
-   * #swagger.tags = ['Auth']
-   * #swagger.description = 'Clears the session cookie and ends the Auth0 session'
+   * #swagger.ignore = true
    */
   void request;
 
