@@ -1,7 +1,7 @@
 import { BookSchema } from "../schemas/books.js";
 import { connection } from "../services/database.js";
 
-const BookModel = connection.model("Book", BookSchema);
+export const BookModel = connection.model("Book", BookSchema);
 
 export const getAllBooks = async () => {
   try {
