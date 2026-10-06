@@ -1,6 +1,7 @@
 import express from "express";
 
 import { destroy, index, show, store, update } from "../controllers/authors.js";
+import { authenticate } from "../middlewares/authenticate.js";
 import { validate } from "../middlewares/validate.js";
 import {
   authorIdSchema,
@@ -11,9 +12,9 @@ import {
 const router = express.Router();
 
 router.get("/", index);
-router.post("/", validate(createAuthorSchema), store);
 router.get("/:id", validate(authorIdSchema), show);
-router.put("/:id", validate(authorUpdateSchema), update);
-router.delete("/:id", validate(authorIdSchema), destroy);
+router.post("/", authenticate, validate(createAuthorSchema), store);
+router.put("/:id", authenticate, validate(authorUpdateSchema), update);
+router.delete("/:id", authenticate, validate(authorIdSchema), destroy);
 
 export { router as authorsRouter };
