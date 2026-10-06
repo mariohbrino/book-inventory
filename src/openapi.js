@@ -20,7 +20,7 @@ const doc = {
     version: "0.1.0",
   },
   host: hostUrl(),
-  schemes: isDevelopment ? ["http"] : ["http", "https"],
+  schemes: isDevelopment ? ["http"] : ["https"],
 };
 
 const generateSwagger = swaggerAutogen({ openapi: "3.2.0" });
