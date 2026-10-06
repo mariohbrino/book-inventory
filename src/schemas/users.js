@@ -12,7 +12,14 @@ export const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
+  },
+  provider: {
+    type: String,
+    default: "local",
+  },
+  auth0Id: {
+    type: String,
   },
   age: {
     type: Number,
