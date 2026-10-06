@@ -30,6 +30,16 @@ export const getUserById = async (id) => {
   }
 };
 
+export const getUserByEmail = async (email) => {
+  try {
+    const user = await UserModel.findOne({ email }, userProfileFields);
+    return user;
+  } catch (error) {
+    console.log("Error fetching user by email: ", error);
+    throw error;
+  }
+};
+
 export const createUser = async (data) => {
   try {
     const newUser = await UserModel.create(data);

@@ -1,6 +1,7 @@
-import { assert, describe, it } from "vitest";
-
 import request from "supertest";
+import { assert, describe, it, vi } from "vitest";
+
+vi.unmock("../../src/middlewares/authenticate.js");
 
 import { app } from "../../src/app.js";
 

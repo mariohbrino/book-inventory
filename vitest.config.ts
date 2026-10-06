@@ -42,6 +42,7 @@ export default defineConfig({
             "tests/features/**/*.test.js",
             "tests/features/**/*.test.ts",
           ],
+          setupFiles: ["tests/helpers/authenticate.js"],
           environment: "node",
           pool: "forks",
         },

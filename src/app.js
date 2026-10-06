@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import express from "express";
 
 import {
@@ -12,6 +13,7 @@ const app = express();
 
 // Apply middlewares
 app.use(express.json());
+app.use(cookieParser());
 app.use(openApiMiddleware());
 app.use(responseMiddleware);
 
