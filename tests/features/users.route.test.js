@@ -1,7 +1,10 @@
+import mockingoose from "mockingoose";
+import mongoose from "mongoose";
 import request from "supertest";
-import { assert, describe, it } from "vitest";
+import { afterEach, assert, beforeEach, describe, it, vi } from "vitest";
 
 import { app } from "../../src/app.js";
+import { UserModel } from "../../src/models/users.js";
 
 describe("user endpoints", () => {
   it("rejects user creation with missing required fields", async () => {
@@ -45,5 +48,52 @@ describe("user endpoints", () => {
     assert.ok(
       response.body.errors.some((issue) => issue.path.includes("email")),
     );
+  });
+});
+
+describe("user endpoints happy path", () => {
+  const usersData = [
+    {
+      _id: "507f1f77bcf86cd799439011",
+      username: "johndoe",
+      email: "john.doe@example.com",
+      age: 30,
+      role: "user",
+    },
+    {
+      _id: "507f1f77bcf86cd799439012",
+      username: "janedoe",
+      email: "jane.doe@example.com",
+      age: 28,
+      role: "admin",
+    },
+  ];
+
+  beforeEach(() => {
+    mongoose.model(UserModel.modelName, UserModel.schema);
+    mockingoose.resetAll();
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    mockingoose.resetAll();
+    mongoose.deleteModel(UserModel.modelName);
+  });
+
+  it("can fetch all users", async () => {
+    mockingoose(UserModel).toReturn(usersData, "find");
+
+    const response = await request(app).get("/users");
+    assert.equal(response.status, 200);
+    assert.equal(response.body.length, 2);
+  });
+
+  it("can fetch a user by ID", async () => {
+    const user = usersData[0];
+    mockingoose(UserModel).toReturn(user, "findOne");
+
+    const response = await request(app).get(`/users/${user._id}`);
+    assert.equal(response.status, 200);
+    assert.equal(response.body.username, user.username);
   });
 });

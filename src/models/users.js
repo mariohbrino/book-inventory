@@ -1,7 +1,7 @@
 import { UserSchema } from "../schemas/users.js";
 import { connection } from "../services/database.js";
 
-const UserModel = connection.model("User", UserSchema);
+export const UserModel = connection.model("User", UserSchema);
 
 const userProfileFields = {
   username: true,
