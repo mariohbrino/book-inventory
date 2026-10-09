@@ -1,7 +1,7 @@
 import { AuthorSchema } from "../schemas/authors.js";
 import { connection } from "../services/database.js";
 
-const AuthorModel = connection.model("Author", AuthorSchema);
+export const AuthorModel = connection.model("Author", AuthorSchema);
 
 export const getAllAuthors = async () => {
   try {
