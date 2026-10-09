@@ -45,3 +45,9 @@ npm run test:units
 npm run test:features
 npm run test:coverage
 ```
+
+Filter and hide skipped tests for feature tests using the following command:
+
+```bash
+npm run test:features -- -t "can fetch" --hideSkippedTests
+```
